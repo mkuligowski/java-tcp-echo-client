@@ -2,8 +2,9 @@ group 'com.mkuligowski'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'java-library-distribution'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -11,4 +12,18 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+}
+
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+
+    manifest {
+        attributes 'Main-Class': 'com.mkuligowski.tcpsrv.Application',
+                'Class-Path': configurations.runtime.files.collect { "$it.name" }.join(' ')
+    }
 }

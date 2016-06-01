@@ -26,7 +26,7 @@ public class ClientConfiguration {
         configuration.setIp("127.0.0.1");
         configuration.setPort(9000);
         configuration.setThreadCount(10);
-        configuration.setLifeTime(60);
+        configuration.setLifeTime(6);
         return configuration;
     }
 

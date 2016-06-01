@@ -1,22 +1,13 @@
 package com.mkuligowski.tcpclnt;
-
-import javax.security.auth.login.Configuration;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by mkuligowski on 31.05.16.
  */
 public class Application {
 
-
-    //Mamy sobie klienta
-    //Generujemy ciag bajtów
-    //Ustala PORT i IP
-    //UStala czy istnieje pula wątków
-    //Ustala czas przez ile odpytuje server
-
-    //wypisuje statystyki do pliku
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         ClientConfiguration configuration = ClientConfiguration.getDefaultConfiguration();
         Scanner reader = new Scanner(System.in);
 
@@ -46,7 +37,7 @@ public class Application {
             configuration.setThreadCount(Integer.parseInt(answer));
 
 
-        System.out.println(configuration.toString());
+        new TCPEchoClient(configuration).start();
 
     }
 
